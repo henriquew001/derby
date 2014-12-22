@@ -1,0 +1,7 @@
+<RCC>
+    <qresource prefix="/ownimages">
+        <file>mimagesCC/Flamengo_Maracana_1.jpg</file>
+        <file>mimagesCC/Flamengo_Maracana_2.jpg</file>
+        <file>mimagesCC/Maracana_1.jpg</file>
+    </qresource>
+</RCC>
