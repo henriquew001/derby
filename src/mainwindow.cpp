@@ -17,10 +17,11 @@ MainWindow::MainWindow(QWidget *parent) :
     if (!QSqlDatabase::drivers().contains("QSQLITE"))
         QMessageBox::critical(this, "Unable to load database", "Derby needs the SQLITE driver");
 
-
     QSqlDatabase db = QSqlDatabase::addDatabase("QSQLITE");
     // Need to change to install definitions dir
-    db.setDatabaseName(userDir.absolutePath() + "/definitions.sqlite");
+    if (QFile::exists(userDir.absolutePath() + "/derbycurrent.sqlite")) QFile::remove(userDir.absolutePath() + "/derbycurrent.sqlite");
+    QFile::copy(userDir.absolutePath() + "/definitions.sqlite", userDir.absolutePath() + "/derbycurrent.sqlite");
+    db.setDatabaseName(userDir.absolutePath() + "/derbycurrent.sqlite");
 
     // initialize the database
     QSqlError err = connectDefinitionsDb(userDir);
@@ -37,13 +38,33 @@ MainWindow::~MainWindow()
 }
 
 void MainWindow::newLocalGame() {
-    ui->countryCB->setModel(getdDefinitionsList("SELECT NationNameEN FROM Associations"));
-
+    ui->countryCB->setModel(getdDefinitionsList("SELECT NationName" + qApp->property("gameLanguage").toString() +" FROM Associations"));
     emit setStackedWidgetIndex(1);
 }
 
 void MainWindow::startPage() {
     emit setStackedWidgetIndex(0);
+}
+
+void MainWindow::fillLeagueCB() {
+    QString querydef = "SELECT LeagueName FROM Associations INNER JOIN Leagues ON Associations.NationID = Leagues.LeagueAssociation WHERE NationName" + qApp->property("gameLanguage").toString() +" = \"" + ui->countryCB->currentText() + "\"";
+    ui->leagueCB->setModel(getdDefinitionsList(querydef));
+    ui->startLeagueCB->setModel(getdDefinitionsList(querydef));
+}
+
+void MainWindow::updateTeamList() {
+    QString querydef = "SELECT TeamName, Logo FROM Leagues INNER JOIN Teams ON Leagues.LeagueID = Teams.League WHERE Leagues.LeagueName = \"" + ui->leagueCB->currentText() + "\"";
+    DefinitionsQSqlQueryModel* dbModel = new DefinitionsQSqlQueryModel();
+    dbModel->setQuery(querydef);
+    ui->teamListView->setModel(dbModel);
+}
+
+void MainWindow::addGamester(){
+
+}
+
+void MainWindow::removeGamester(){
+
 }
 
 void MainWindow::showError(const QSqlError &err)

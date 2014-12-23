@@ -4,6 +4,8 @@
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
+    QString lang = "EN";
+    a.setProperty("gameLanguage", lang);
     MainWindow w;
     w.show();
 

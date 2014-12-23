@@ -27,7 +27,11 @@ private:
 private slots:
     void newLocalGame();
     void startPage();
-
+    void fillLeagueCB();
+    void updateTeamList();
+    void addGamester();
+    void removeGamester();
+    
 signals:
     void setStackedWidgetIndex(int);
 };

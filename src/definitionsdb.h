@@ -7,10 +7,11 @@
 #include <QtSql/QSqlQueryModel>
 #include <QMessageBox>
 #include <QtCore/QDir>
+#include "definitionsqsqlquerymodel.h"
 
 QSqlError connectDefinitionsDb(QDir userDir)
 {
-    QSqlDatabase db = QSqlDatabase::addDatabase("QSQLITE");
+    QSqlDatabase db = QSqlDatabase::addDatabase("QSQLITE");QString connection;
     // Need to change to install definitions dir
     db.setDatabaseName(userDir.absolutePath() + "/definitions.sqlite");
 
@@ -31,14 +32,9 @@ QSqlError connectDefinitionsDb(QDir userDir)
 
 QSqlQueryModel* getdDefinitionsList(const QString str)
 {
-    QSqlQuery* qry = new QSqlQuery();
-
-    QSqlQueryModel* nationModel = new QSqlQueryModel();
-
-    qry->prepare(str);
-    qry->exec();
-    nationModel->setQuery(*qry);
-    return nationModel;
+    QSqlQueryModel* dbModel = new QSqlQueryModel();
+    dbModel->setQuery(str);
+    return dbModel;
 }
 
 #endif // DEFINITIONSDB_H
