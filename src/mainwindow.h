@@ -3,6 +3,8 @@
 
 #include <QMainWindow>
 #include <QDialog>
+#include <QtSql/QSqlDatabase>
+#include <QtCore/QDir>
 
 namespace Ui {
 class MainWindow;
@@ -19,6 +21,8 @@ public:
 private:
     Ui::MainWindow *ui;
     QString participantName;
+    QDir userDir;
+    void showError(const QSqlError &err);
 
 private slots:
     void newLocalGame();

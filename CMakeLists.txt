@@ -30,6 +30,10 @@ set( a_RCS
  ${CMAKE_SOURCE_DIR}/rc/images.qrc
 )
 
+set( a_HDRS
+ ${CMAKE_SOURCE_DIR}/src/definitionsdb.h
+)
+
 set( a_UIS
  ${CMAKE_SOURCE_DIR}/src/mainwindow.ui
 )
@@ -38,6 +42,6 @@ foreach(plugin ${Qt5Network_PLUGINS})
   message("Plugin ${plugin} is at location ${_loc}")
 endforeach()
 ##### BUILD and LINK #####
-add_executable(${PROJECT_NAME} ${SRC_LIST} ${a_RCS} ${a_UIS})
+add_executable(${PROJECT_NAME} ${SRC_LIST} ${a_RCS} ${a_UIS} ${a_HDRS})
 
 target_link_libraries(${PROJECT_NAME} ${PROJECT_NAME}_Core Qt5::Widgets Qt5::Sql)

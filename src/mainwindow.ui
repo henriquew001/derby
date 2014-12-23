@@ -153,19 +153,6 @@
           </property>
          </widget>
         </item>
-        <item row="2" column="0">
-         <spacer name="spacer">
-          <property name="orientation">
-           <enum>Qt::Vertical</enum>
-          </property>
-          <property name="sizeHint" stdset="0">
-           <size>
-            <width>10</width>
-            <height>43</height>
-           </size>
-          </property>
-         </spacer>
-        </item>
         <item row="3" column="0">
          <widget class="QLabel" name="label_3">
           <property name="text">
@@ -220,6 +207,9 @@
         </item>
         <item row="5" column="0" colspan="2">
          <widget class="QPushButton" name="addGamesterPushButton">
+          <property name="enabled">
+           <bool>true</bool>
+          </property>
           <property name="text">
            <string>Add Player</string>
           </property>
@@ -250,6 +240,9 @@
         </item>
         <item row="7" column="0" colspan="3">
          <widget class="QTableWidget" name="gamesterTableWidget">
+          <property name="enabled">
+           <bool>false</bool>
+          </property>
           <property name="font">
            <font>
             <family>Sans Serif</family>
@@ -363,6 +356,19 @@
            </item>
           </layout>
          </widget>
+        </item>
+        <item row="2" column="0" colspan="2">
+         <spacer name="spacer">
+          <property name="orientation">
+           <enum>Qt::Vertical</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>10</width>
+            <height>43</height>
+           </size>
+          </property>
+         </spacer>
         </item>
        </layout>
       </widget>
