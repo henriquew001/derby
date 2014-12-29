@@ -37,6 +37,7 @@ set( a_HDRS
 set( a_UIS
  ${CMAKE_SOURCE_DIR}/src/mainwindow.ui
 )
+
 foreach(plugin ${Qt5Network_PLUGINS})
   get_target_property(_loc ${plugin} LOCATION)
   message("Plugin ${plugin} is at location ${_loc}")

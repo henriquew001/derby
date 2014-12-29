@@ -5,6 +5,9 @@
 #include <QDialog>
 #include <QtSql/QSqlDatabase>
 #include <QtCore/QDir>
+#include <QtSql/QSqlRelationalTableModel>
+#include <QtSql/QSqlRecord>
+#include <QtSql/QSqlField>
 
 namespace Ui {
 class MainWindow;
@@ -22,6 +25,8 @@ private:
     Ui::MainWindow *ui;
     QString participantName;
     QDir userDir;
+    QSqlDatabase m_GameDB;
+    QSqlRelationalTableModel *m_GameTableModel;
     void showError(const QSqlError &err);
 
 private slots:

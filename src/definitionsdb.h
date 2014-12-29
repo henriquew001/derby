@@ -9,11 +9,11 @@
 #include <QtCore/QDir>
 #include "definitionsqsqlquerymodel.h"
 
-QSqlError connectDefinitionsDb(QDir userDir)
+QSqlError connectDefinitionsDb(QDir dbDir)
 {
-    QSqlDatabase db = QSqlDatabase::addDatabase("QSQLITE");QString connection;
+    QSqlDatabase db = QSqlDatabase::addDatabase("QSQLITE");
     // Need to change to install definitions dir
-    db.setDatabaseName(userDir.absolutePath() + "/definitions.sqlite");
+    db.setDatabaseName(dbDir.absolutePath());
 
     if (!db.open())
         return db.lastError();
@@ -37,4 +37,19 @@ QSqlQueryModel* getdDefinitionsList(const QString str)
     return dbModel;
 }
 
+QSqlError connectGameDb(QDir dbDir)
+{
+    if(QFile::exists(dbDir.absolutePath())) QFile::remove(dbDir.absolutePath());
+    QSqlDatabase gameDB = QSqlDatabase::addDatabase("QSQLITE", "Game");
+    // Need to change to install definitions dir
+    gameDB.setDatabaseName(dbDir.absolutePath());
+
+    if (!gameDB.open())
+        return gameDB.lastError();
+
+    QSqlQuery *q = new QSqlQuery("CREATE TABLE Gamester(id INTEGER PRIMARY KEY, GamesterName VARCHAR, GamesterTeam VARCHAR, StartLeague VARCHAR)", gameDB);
+    q->exec();
+
+    return QSqlError();
+}
 #endif // DEFINITIONSDB_H
